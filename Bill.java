@@ -1,9 +1,10 @@
 import java.util.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 interface BillInterface{
     void getdetails();
     void displaydetails();
 }
-
 class Product implements BillInterface{
     int productid;
     String name;
@@ -28,7 +29,6 @@ class Product implements BillInterface{
                 productid, name, quantity, unitprice, total);
     }
 }
-
 class Order implements BillInterface {
     int orderNo;
     int Count;
@@ -58,10 +58,12 @@ class Order implements BillInterface {
         System.out.printf("Net Amount: %.2f\n", netAmount);
     }
 }
-
 public class Bill{
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy HH:mm:ss");
+        String formattedDateTime = now.format(format);
         System.out.print("Enter no of orders: ");
         int n = sc.nextInt();
         Order[] orders = new Order[n];
@@ -71,6 +73,8 @@ public class Bill{
             orders[i].getdetails();
         }
         System.out.println("\n=========== BILL ===========");
+        System.out.println(formattedDateTime);
+        System.out.println("--------------------------------------------");
         for (Order o:orders) {
             o.displaydetails();
         }
